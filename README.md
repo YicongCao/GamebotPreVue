@@ -76,6 +76,10 @@ Response:s
 # install dependencies
 npm install
 
+npm i basic-vue-chat
+
+npm install sass-loader node-sass --save-dev
+
 # serve with hot reload at localhost:8080
 npm run dev
 
