@@ -25,7 +25,7 @@ export default {
   methods: {
     onNewOwnMessage: function(newmessage) {
       const vm = this;
-      console.log("you sent msg:" + newmessage);
+      console.log("1st you sent msg:" + newmessage);
       var http = require("http");
       var options = {
         host: "",
@@ -41,11 +41,12 @@ export default {
           })
           .on("end", function() {
             var body = Buffer.concat(bodyChunks);
-            console.log("BODY: " + body + "\r\n");
+            //console.log("BODY: " + body + "\r\n");
 
             // make second req
 
             var nlu = JSON.parse(body);
+            console.log(nlu);
             var entities = {};
             console.log("INTENT: " + nlu.intent.name);
             for (var entity in nlu.entities) {
@@ -63,7 +64,7 @@ export default {
 
             var filter = new Object();
             filter.query = entities;
-            console.log("second request: " + JSON.stringify(filter));
+            console.log("2nd request: " + JSON.stringify(filter));
 
             var http2 = require("http");
             var post_data = JSON.stringify(filter);
@@ -88,13 +89,15 @@ export default {
                 })
                 .on("end", function() {
                   var body = Buffer.concat(bodyChunks);
-                  console.log("BODY: " + body + "\r\n");
+                  //console.log("BODY: " + body + "\r\n");
 
                   var games = JSON.parse(body);
 
-                  console.log(games.games[0].name);
-                  console.log(games.games[0].img);
-                  console.log(nlu.intent.name);
+                  console.log(games);
+
+                  console.log("First: " + games.games[0].name);
+                  console.log("With Pic: " + games.games[0].img);
+                  //console.log(nlu.intent.name);
 
                   var respA = "";
                   var respB = "";
@@ -149,6 +152,7 @@ export default {
                     imageUrl: games.games[0].name.img,
                     date: timestr
                   };
+                  console.log("\r\n----------DONE----------\r\n\r\n");
                 });
             });
           });
